@@ -1,4 +1,4 @@
-import random, pprint
+import random, pprint, json
 #Ejemplo de canción: cancion = {"nombre":"Sweet Child O' Mine","autor":"Guns N' roses","genero":"rock"}
 
 # Parte 1: Carga y Manipulación de Listas de Música
@@ -7,18 +7,31 @@ import random, pprint
 
 def cargar_lista(nombreFichero):
     lista_canciones=[]
-    with open(nombreFichero,"r") as fichero:
-        for linea in fichero:
-            valores = linea.strip().split(" - ")
-            if len(valores)==3:
-                nombre, artista, genero = valores
-                cancion = {'nombre': nombre, 'artista': artista, 'genero': genero}
-                lista_canciones.append(cancion)
-                
-            else:
-                print("Estructura del fichero incorrecta")
-                break
-    return lista_canciones
+    try:
+        with open(nombreFichero,"r") as fichero:
+            for linea in fichero:
+                valores = linea.strip().split(" - ")
+                if len(valores)==3:
+                    nombre, artista, genero = valores
+                    cancion = {'nombre': nombre, 'artista': artista, 'genero': genero}
+                    lista_canciones.append(cancion)
+                    
+                else:
+                    print("Estructura del fichero incorrecta")
+                    break
+            return lista_canciones
+    except FileNotFoundError:
+        print("No se ha encontrado el fichero")
+        return []
+    
+def cargar_lista_json(nombreFichero):
+    lista_canciones=[]
+    try:
+        with open(nombreFichero,"r", encoding='utf-8') as fichero:
+            return json.load(fichero)
+    except FileNotFoundError:
+        print("No se ha encontrado el fichero")
+        return []
 
 # 1.2. Agregar Canción a Lista de Música: (1 punto)
 # Escribe una función llamada agregar_cancion que tome un diccionario de canciones, el nombre de una nueva canción y el nombre del artista como argumentos, y agregue la nueva canción al diccionario.
@@ -90,12 +103,18 @@ def guardar_lista(lista_canciones, nombreArchivo):
         for cancion in lista_canciones:
             fichero.write(f"{cancion['nombre']} - {cancion['artista']} - {cancion['genero']}\n")
 
-biblioteca_musical=cargar_lista("biblioteca.txt")
+def guardar_lista_json(lista_canciones, nombreArchivo):
+    
+    with open(nombreArchivo, "w", encoding='utf-8') as fichero:
+        json.dump(lista_canciones,fichero, indent=4, ensure_ascii=False)
+
+
+biblioteca_musical=cargar_lista_json("biblioteca.json")
 
 biblioteca_musical=agregar_cancion(biblioteca_musical,'Mi canción','JI','Rock')
 #biblioteca_musical=eliminar_cancion(biblioteca_musical,'Mi canción')
 #pprint.pprint(biblioteca_musical, width=40)
 # eliminar_cancion(listaCanciones, "Yesterday")
-guardar_lista(biblioteca_musical, "biblioteca_modificada.txt")
+guardar_lista_json(biblioteca_musical, "biblioteca_modificada.json")
 
 # print(crear_lista_aleatoria(listaCanciones , 3))

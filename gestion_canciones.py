@@ -42,11 +42,17 @@ def contar_canciones(diccionario):
 
 # 2.2. Buscar Canciones por Artista: (2 puntos)
 # Escribe una función llamada buscar_por_artista que tome un diccionario de canciones y el nombre de un artista como argumentos, y devuelva una lista de todas las canciones de ese artista.
-
+def buscar_por_artista (diccionario, artista):
+    canciones_artista = []
+    for cancion in diccionario:
+        if diccionario[cancion]==artista:
+            canciones_artista.append(cancion)
+    return canciones_artista
 
 # 2.3. Ordenar Lista de Música Alfabéticamente: (1 punto)
 # Escribe una función llamada ordenar_alfabeticamente que tome un diccionario de canciones como argumento y devuelva una lista de tuplas ordenadas alfabéticamente por título de canción.
-
+def ordenar_alfabeticamente (diccionario):
+    return sorted(diccionario)
 # Parte 3: Creación de Listas de Reproducción
 # 3.1. Crear Lista de Reproducción Aleatoria: (2 puntos)
 # Escribe una función llamada crear_lista_aleatoria que tome un diccionario de canciones y un número n como argumentos, y devuelva una lista aleatoria de n canciones del diccionario de canciones original.
@@ -69,7 +75,10 @@ def guardar_lista(diccionario, nombreArchivo):
 listaCanciones=cargar_lista("playlist.txt")
 print(listaCanciones)
 
-eliminar_cancion(listaCanciones, "Yesterday")
-guardar_lista(listaCanciones, "playlist2.txt")
+# eliminar_cancion(listaCanciones, "Yesterday2")
+print(buscar_por_artista(listaCanciones,'The Beatles'))
+print(ordenar_alfabeticamente(listaCanciones))
 
-print(crear_lista_aleatoria(listaCanciones , 3))
+# guardar_lista(listaCanciones, "playlist2.txt")
+
+# print(crear_lista_aleatoria(listaCanciones , 3))

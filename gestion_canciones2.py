@@ -7,13 +7,18 @@ import random, pprint, json
 
 def cargar_lista(nombreFichero):
     lista_canciones=[]
+    cancion={}
     try:
         with open(nombreFichero,"r") as fichero:
             for linea in fichero:
                 valores = linea.strip().split(" - ")
                 if len(valores)==3:
                     nombre, artista, genero = valores
-                    cancion = {'nombre': nombre, 'artista': artista, 'genero': genero}
+                    cancion["nombre"]= nombre
+                    cancion["artista"]= artista
+                    cancion["genero"]= genero
+
+                    # cancion = {'nombre': nombre, 'artista': artista, 'genero': genero}
                     lista_canciones.append(cancion)
                     
                 else:
@@ -25,7 +30,6 @@ def cargar_lista(nombreFichero):
         return []
     
 def cargar_lista_json(nombreFichero):
-    lista_canciones=[]
     try:
         with open(nombreFichero,"r", encoding='utf-8') as fichero:
             return json.load(fichero)
@@ -111,10 +115,13 @@ def guardar_lista_json(lista_canciones, nombreArchivo):
 
 biblioteca_musical=cargar_lista_json("biblioteca.json")
 
-biblioteca_musical=agregar_cancion(biblioteca_musical,'Mi canción','JI','Rock')
+print(biblioteca_musical)
+#biblioteca_musical=agregar_cancion(biblioteca_musical,'Mi canción','JI','Rock')
 #biblioteca_musical=eliminar_cancion(biblioteca_musical,'Mi canción')
 #pprint.pprint(biblioteca_musical, width=40)
 # eliminar_cancion(listaCanciones, "Yesterday")
 guardar_lista_json(biblioteca_musical, "biblioteca_modificada.json")
 
 # print(crear_lista_aleatoria(listaCanciones , 3))
+        
+

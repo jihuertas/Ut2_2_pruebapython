@@ -77,7 +77,7 @@ print(listaCanciones)
 
 # eliminar_cancion(listaCanciones, "Yesterday2")
 print(buscar_por_artista(listaCanciones,'The Beatles'))
-print(ordenar_alfabeticamente(listaCanciones))
+#print(ordenar_alfabeticamente(listaCanciones))
 
 # guardar_lista(listaCanciones, "playlist2.txt")
 
